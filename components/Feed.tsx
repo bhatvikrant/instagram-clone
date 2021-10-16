@@ -1,5 +1,7 @@
 import Stories from "./Stories";
 import Posts from "./Posts";
+import MiniProfile from "./MiniProfile";
+import Suggestions from "./Suggestions";
 
 // TS INTERFACES
 interface Props {}
@@ -14,9 +16,11 @@ const Feed: React.FC<Props> = (props) => {
         <Posts />
       </section>
       {/* =============== RIGHT =============== */}
-      <section>
-        {/* ======== Mini Profile ======== */}
-        {/* ======== Suggestions ======== */}
+      <section className="hidden xl:inline-grid md:col-span-1">
+        <div className="fixed">
+          <MiniProfile />
+          <Suggestions />
+        </div>
       </section>
     </main>
   );
