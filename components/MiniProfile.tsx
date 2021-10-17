@@ -19,7 +19,7 @@ const MiniProfile: React.FC<Props> = (props) => {
     <div className="flex items-center justify-between mt-14 ml-10">
       <div className="h-12 w-12 border p-1 rounded-full">
         <Image
-          src={session.user?.image || "/default-user.png"}
+          src={session.user.image}
           alt={"Profile pic"}
           height={48}
           width={48}
@@ -28,7 +28,7 @@ const MiniProfile: React.FC<Props> = (props) => {
       </div>
 
       <div className="flex-1 mx-4">
-        <h2 className="font-bold">{session.user?.username}</h2>
+        <h2 className="font-bold">{session.user.username}</h2>
         <h3 className="text-sm text-gray-400">Welcome to Instagram</h3>
       </div>
 

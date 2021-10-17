@@ -86,7 +86,7 @@ const Header: React.FC<Props> = (props) => {
                 onClick={() => signOut()}
               >
                 <Image
-                  src={session.user?.image || "/default-user.png"}
+                  src={session.user.image}
                   height="40"
                   width="40"
                   objectFit="cover"
