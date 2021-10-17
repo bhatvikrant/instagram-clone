@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // NEXT AUTH
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 // TS INTERFACES
 interface Props {}
