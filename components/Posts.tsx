@@ -21,7 +21,6 @@ const Posts: React.FC<Props> = (props) => {
   const {} = props;
 
   const [posts, setPosts] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
-  console.log({ posts });
 
   useEffect(() => {
     const unsub = onSnapshot(

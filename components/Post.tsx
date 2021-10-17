@@ -12,6 +12,9 @@ import {
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 
+// NEXT AUTH
+import { useSession } from "next-auth/react";
+
 // TS INTERFACES
 interface Props {
   id: string;
@@ -23,6 +26,8 @@ interface Props {
 
 const Post: React.FC<Props> = (props) => {
   const { id, username, profileImg, postImage, caption } = props;
+
+  const { data: session } = useSession();
 
   return (
     <div className="bg-white my-7 border rounded-sm relative">
@@ -54,14 +59,16 @@ const Post: React.FC<Props> = (props) => {
       </div>
 
       {/* ============== Feed Buttons ============== */}
-      <div className="flex justify-between px-4 pt-4">
-        <div className="flex space-x-4">
-          <HeartIcon className="feedBtn" />
-          <ChatIcon className="feedBtn" />
-          <PaperAirplaneIcon className="feedBtn rotate-45" />
+      {session && (
+        <div className="flex justify-between px-4 pt-4">
+          <div className="flex space-x-4">
+            <HeartIcon className="feedBtn" />
+            <ChatIcon className="feedBtn" />
+            <PaperAirplaneIcon className="feedBtn rotate-45" />
+          </div>
+          <BookmarkIcon className="feedBtn" />
         </div>
-        <BookmarkIcon className="feedBtn" />
-      </div>
+      )}
 
       {/* ============== Feed Caption ============== */}
       <p className="p-5 truncate">
@@ -72,16 +79,18 @@ const Post: React.FC<Props> = (props) => {
       {/* ============== Feed Comments ============== */}
 
       {/* ============== Feed Comment Input ============== */}
-      <form className="flex items-center p-4">
-        <EmojiHappyIcon className="h-7 flex-shrink-0" />
-        <input
-          type="text"
-          className="border-none flex-1 focus:ring-0 outline-none"
-          placeholder="Add a comment..."
-        />
+      {session && (
+        <form className="flex items-center p-4">
+          <EmojiHappyIcon className="h-7 flex-shrink-0" />
+          <input
+            type="text"
+            className="border-none flex-1 focus:ring-0 outline-none"
+            placeholder="Add a comment..."
+          />
 
-        <button className="font-semibold text-blue-400">Post</button>
-      </form>
+          <button className="font-semibold text-blue-400">Post</button>
+        </form>
+      )}
     </div>
   );
 };
