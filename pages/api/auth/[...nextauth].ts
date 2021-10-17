@@ -12,6 +12,6 @@ export default NextAuth({
     // ...add more providers here
   ],
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth/signin", // for custom sign in page
   },
 });
