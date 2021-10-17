@@ -21,7 +21,6 @@ const Header: React.FC<Props> = (props) => {
   const {} = props;
 
   const { data: session } = useSession();
-  console.log(session);
 
   return (
     <div className="shadow border-b bg-white sticky top-0 z-50">
