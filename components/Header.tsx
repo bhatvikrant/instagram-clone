@@ -11,11 +11,17 @@ import {
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 
+// NEXT AUTH
+import { signIn, signOut, useSession } from "next-auth/react";
+
 // TS INTERFACES
 interface Props {}
 
 const Header: React.FC<Props> = (props) => {
   const {} = props;
+
+  const { data: session } = useSession();
+  console.log(session);
 
   return (
     <div className="shadow border-b bg-white sticky top-0 z-50">
@@ -46,27 +52,36 @@ const Header: React.FC<Props> = (props) => {
           <HomeIcon className="navBtn" />
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
 
-          <div className="relative navBtn">
-            <PaperAirplaneIcon className="navBtn rotate-45" />
+          {session ? (
+            <>
+              <div className="relative navBtn">
+                <PaperAirplaneIcon className="navBtn rotate-45" />
 
-            <div className="absolute -top-1 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full grid place-items-center animate-pulse text-white">
-              3
-            </div>
-          </div>
-          <PlusCircleIcon className="navBtn" />
-          <UserGroupIcon className="navBtn" />
-          <HeartIcon className="navBtn" />
+                <div className="absolute -top-1 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full grid place-items-center animate-pulse text-white">
+                  3
+                </div>
+              </div>
+              <PlusCircleIcon className="navBtn" />
+              <UserGroupIcon className="navBtn" />
+              <HeartIcon className="navBtn" />
 
-          <div className="grid place-items-center">
-            <Image
-              src="https://avatars.githubusercontent.com/u/50735025?v=4"
-              height="40"
-              width="40"
-              objectFit="cover"
-              className="rounded-full"
-              alt="Profile pic"
-            />
-          </div>
+              <div
+                className="grid place-items-center cursor-pointer"
+                onClick={() => signOut()}
+              >
+                <Image
+                  src={session.user?.image || "/default-user.png"}
+                  height="40"
+                  width="40"
+                  objectFit="cover"
+                  className="rounded-full"
+                  alt="Profile pic"
+                />
+              </div>
+            </>
+          ) : (
+            <button onClick={() => signIn()}>Sign in</button>
+          )}
         </div>
       </div>
     </div>
