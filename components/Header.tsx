@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 // ICONS
 import {
@@ -26,9 +27,11 @@ const Header: React.FC<Props> = (props) => {
     <div className="shadow border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 xl:mx-auto">
         {/* =============== LEFT =============== */}
-        <div className="relative w-24 hidden lg:inline-grid cursor-pointer">
-          <Image src="/full-logo.webp" layout="fill" objectFit="contain" />
-        </div>
+        <Link href="/">
+          <a className="relative w-24 hidden lg:inline-grid cursor-pointer">
+            <Image src="/full-logo.webp" layout="fill" objectFit="contain" />
+          </a>
+        </Link>
 
         <div className="relative w-10 lg:hidden flex-shrink-0 cursor-pointer">
           <Image src="/logo.png" layout="fill" objectFit="contain" />
@@ -48,7 +51,11 @@ const Header: React.FC<Props> = (props) => {
         </div>
         {/* =============== RIGHT =============== */}
         <div className="flex items-center justify-end space-x-4">
-          <HomeIcon className="navBtn" />
+          <Link href="/">
+            <a>
+              <HomeIcon className="navBtn" />
+            </a>
+          </Link>
           <MenuIcon className="h-6 md:hidden cursor-pointer" />
 
           {session ? (
