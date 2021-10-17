@@ -15,6 +15,10 @@ import { HomeIcon } from "@heroicons/react/solid";
 // NEXT AUTH
 import { signIn, signOut, useSession } from "next-auth/react";
 
+// RECOIL
+import { useRecoilState } from "recoil";
+import { modalState } from "../atoms/modalAtom";
+
 // TS INTERFACES
 interface Props {}
 
@@ -22,6 +26,9 @@ const Header: React.FC<Props> = (props) => {
   const {} = props;
 
   const { data: session } = useSession();
+
+  const [open, setOpen] = useRecoilState(modalState);
+  console.log(open);
 
   return (
     <div className="shadow border-b bg-white sticky top-0 z-50">
@@ -67,7 +74,10 @@ const Header: React.FC<Props> = (props) => {
                   3
                 </div>
               </div>
-              <PlusCircleIcon className="navBtn" />
+              <PlusCircleIcon
+                className="navBtn"
+                onClick={() => setOpen(true)}
+              />
               <UserGroupIcon className="navBtn" />
               <HeartIcon className="navBtn" />
 
