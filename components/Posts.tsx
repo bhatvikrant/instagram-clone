@@ -1,41 +1,38 @@
+import { useEffect, useState } from "react";
+
+// COMPONENTS
 import Post from "./Post";
+
+// FIREBASE
+import {
+  collection,
+  DocumentData,
+  onSnapshot,
+  orderBy,
+  query,
+  QueryDocumentSnapshot,
+} from "@firebase/firestore";
+import { db } from "../firebase";
 
 // TS INTERFACES
 interface Props {}
 
-const posts = [
-  {
-    id: "1",
-    username: "johndoe",
-    userImg: "https://avatars.githubusercontent.com/u/50735025?v=4",
-    img: "/logo.png",
-    caption: "This is a caption",
-  },
-  {
-    id: "1",
-    username: "johndoe",
-    userImg: "https://avatars.githubusercontent.com/u/50735025?v=4",
-    img: "/logo.png",
-    caption: "This is a caption",
-  },
-  {
-    id: "1",
-    username: "johndoe",
-    userImg: "https://avatars.githubusercontent.com/u/50735025?v=4",
-    img: "/logo.png",
-    caption: "This is a caption",
-  },
-  {
-    id: "1",
-    username: "johndoe",
-    userImg: "https://avatars.githubusercontent.com/u/50735025?v=4",
-    img: "/logo.png",
-    caption: "This is a caption",
-  },
-];
-
 const Posts: React.FC<Props> = (props) => {
   const {} = props;
+
+  const [posts, setPosts] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
+  console.log({ posts });
+
+  useEffect(() => {
+    const unsub = onSnapshot(
+      query(collection(db, "posts"), orderBy("timestamp", "desc")),
+      (snapshot) => {
+        setPosts(snapshot.docs);
+      }
+    );
+
+    return () => unsub();
+  }, [db]);
 
   return (
     <div>
@@ -43,10 +40,10 @@ const Posts: React.FC<Props> = (props) => {
         <Post
           key={post.id}
           id={post.id}
-          username={post.username}
-          userImg={post.userImg}
-          img={post.img}
-          caption={post.caption}
+          username={post.data().username}
+          profileImg={post.data().profileImg}
+          postImage={post.data().image}
+          caption={post.data().caption}
         />
       ))}
     </div>

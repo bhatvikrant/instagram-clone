@@ -16,13 +16,13 @@ import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 interface Props {
   id: string;
   username: string;
-  userImg: string;
-  img: string;
+  profileImg: string;
+  postImage: string;
   caption: string;
 }
 
 const Post: React.FC<Props> = (props) => {
-  const { id, username, userImg, img, caption } = props;
+  const { id, username, profileImg, postImage, caption } = props;
 
   return (
     <div className="bg-white my-7 border rounded-sm relative">
@@ -30,7 +30,7 @@ const Post: React.FC<Props> = (props) => {
       <div className="flex items-center p-5 border-b">
         <div className="h-12 w-12 border p-1 rounded-full mr-3">
           <Image
-            src={userImg}
+            src={profileImg}
             alt={username}
             height={48}
             width={48}
@@ -43,7 +43,14 @@ const Post: React.FC<Props> = (props) => {
 
       {/* ============== Feed Content (img) ============== */}
       <div className="w-full relative h-96">
-        <Image src={img} className="w-full" layout="fill" objectFit="contain" />
+        {postImage && (
+          <Image
+            src={postImage}
+            className="w-full"
+            layout="fill"
+            objectFit="contain"
+          />
+        )}
       </div>
 
       {/* ============== Feed Buttons ============== */}

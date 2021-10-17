@@ -40,6 +40,9 @@ const Modal: React.FC = () => {
 
   const uploadPost = async () => {
     if (loading) return;
+    if (!session) return;
+    if (!selectedFile) return;
+    if (!captionRef.current?.value) return;
 
     setLoading(true);
 
