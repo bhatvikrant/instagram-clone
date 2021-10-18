@@ -25,12 +25,15 @@ import { useSession } from "next-auth/react";
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   DocumentData,
   onSnapshot,
   orderBy,
   query,
   QueryDocumentSnapshot,
   serverTimestamp,
+  setDoc,
 } from "@firebase/firestore";
 import { db } from "../firebase";
 
@@ -52,7 +55,42 @@ const Post: React.FC<Props> = (props) => {
   const [comments, setComments] = useState<
     QueryDocumentSnapshot<DocumentData>[]
   >([]);
-  console.log({ comments });
+  const [likes, setLikes] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
+  const [hasLiked, setHasLiked] = useState(false);
+
+  // useEffect to fetch comments
+  useEffect(
+    () =>
+      // implicit return so that it cleansup automatically
+      onSnapshot(
+        query(
+          collection(db, "posts", id, "comments"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => {
+          setComments(snapshot.docs);
+        }
+      ),
+    [db, id]
+  );
+
+  useEffect(
+    () =>
+      setHasLiked(
+        likes.findIndex((like) => like.id === session?.user.uid) !== -1
+      ),
+    [likes, session]
+  );
+
+  // useEffect to fetch likes
+  useEffect(
+    () =>
+      // implicit return so that it cleansup automatically
+      onSnapshot(query(collection(db, "posts", id, "likes")), (snapshot) => {
+        setLikes(snapshot.docs);
+      }),
+    [db, id]
+  );
 
   const createComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,21 +106,17 @@ const Post: React.FC<Props> = (props) => {
     });
   };
 
-  // useEffect to fetch comments
-  useEffect(
-    () =>
-      // implicit return so that it cleansup automatically
-      onSnapshot(
-        query(
-          collection(db, "posts", id, "comments"),
-          orderBy("timestamp", "desc")
-        ),
-        (snapshot) => {
-          setComments(snapshot.docs);
-        }
-      ),
-    [db]
-  );
+  const likePost = async () => {
+    if (hasLiked) {
+      await deleteDoc(
+        doc(db, "posts", id, "likes", session?.user.uid as string)
+      );
+    } else {
+      await setDoc(doc(db, "posts", id, "likes", session?.user.uid as string), {
+        username: session?.user.username,
+      });
+    }
+  };
 
   return (
     <div className="bg-white my-7 border rounded-sm relative">
@@ -117,7 +151,11 @@ const Post: React.FC<Props> = (props) => {
       {session && (
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
-            <HeartIcon className="feedBtn" />
+            {hasLiked ? (
+              <HeartIconFilled className="feedBtn" onClick={likePost} />
+            ) : (
+              <HeartIcon className="feedBtn" onClick={likePost} />
+            )}
             <ChatIcon className="feedBtn" />
             <PaperAirplaneIcon className="feedBtn rotate-45" />
           </div>
