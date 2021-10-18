@@ -27,3 +27,7 @@ yarn create next-app --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+
+GCP project -> https://console.cloud.google.com/apis/credentials?project=instagram-clone-viki
+Firebase project -> https://console.firebase.google.com/u/0/project/instagram-clone-viki/storage/instagram-clone-viki.appspot.com/files
