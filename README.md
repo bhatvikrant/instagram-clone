@@ -30,4 +30,10 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 
 
 GCP project -> https://console.cloud.google.com/apis/credentials?project=instagram-clone-viki
+
 Firebase project -> https://console.firebase.google.com/u/0/project/instagram-clone-viki/storage/instagram-clone-viki.appspot.com/files
+
+# TODO:
+1. Make strict firebase security rules
+2. update readme properly
+3. Add to projects on vikrantbhat.com
