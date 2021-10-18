@@ -152,7 +152,10 @@ const Post: React.FC<Props> = (props) => {
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
             {hasLiked ? (
-              <HeartIconFilled className="feedBtn" onClick={likePost} />
+              <HeartIconFilled
+                className="feedBtn text-red-500"
+                onClick={likePost}
+              />
             ) : (
               <HeartIcon className="feedBtn" onClick={likePost} />
             )}
@@ -165,6 +168,11 @@ const Post: React.FC<Props> = (props) => {
 
       {/* ============== Feed Caption ============== */}
       <p className="p-5 truncate">
+        {likes.length > 0 && (
+          <p className="font-bold mb-1">
+            {likes.length === 1 ? "1 like" : `${likes.length} likes`}
+          </p>
+        )}
         <span className="font-bold mr-1">{username}</span>
         {caption}
       </p>
