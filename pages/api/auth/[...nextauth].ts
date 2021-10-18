@@ -17,6 +17,7 @@ export default NextAuth({
     signIn: "/auth/signin", // for custom sign in page
   },
   callbacks: {
+    // @ts-ignore
     async session({ session, token, user }): Awaitable<Session> {
       (session.user as ExtendedUserType).username = session.user?.name
         ?.split(" ")
