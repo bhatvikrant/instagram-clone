@@ -28,7 +28,6 @@ const Header: React.FC<Props> = (props) => {
   const { data: session } = useSession();
 
   const [open, setOpen] = useRecoilState(modalState);
-  console.log(open);
 
   return (
     <div className="shadow border-b bg-white sticky top-0 z-50">

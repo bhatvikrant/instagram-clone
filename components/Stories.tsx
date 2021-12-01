@@ -1,24 +1,13 @@
-// FAKER
-import faker from "faker";
-
 // COMPONENTS
 import Story from "./Story";
 
 // NEXT AUTH
 import { useSession } from "next-auth/react";
 
-// TS INTERFACES
-interface Props {}
+// STATIC DATA
+import { fakeUsers } from "../static-data/fakeUsers.data";
 
-// STATIC FAKE DATA
-const suggestions = [...Array(20)].map((_, idx) => ({
-  ...faker.helpers.contextualCard(),
-  id: idx,
-}));
-
-const Stories: React.FC<Props> = (props) => {
-  const {} = props;
-
+const Stories: React.FC = () => {
   const { data: session } = useSession();
 
   return (
@@ -26,7 +15,7 @@ const Stories: React.FC<Props> = (props) => {
       {session && (
         <Story img={session.user.image} username={session.user.username} />
       )}
-      {suggestions.map((profile) => (
+      {fakeUsers.map((profile) => (
         <Story
           key={profile.id}
           img={profile.avatar}

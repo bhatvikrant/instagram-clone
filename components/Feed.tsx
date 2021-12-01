@@ -6,12 +6,7 @@ import Suggestions from "./Suggestions";
 // NEXT AUTH
 import { useSession } from "next-auth/react";
 
-// TS INTERFACES
-interface Props {}
-
-const Feed: React.FC<Props> = (props) => {
-  const {} = props;
-
+const Feed: React.FC = () => {
   const { data: session } = useSession();
 
   return (

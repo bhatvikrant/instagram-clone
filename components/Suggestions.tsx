@@ -1,20 +1,9 @@
 import Image from "next/image";
 
-// FAKER
-import faker from "faker";
+// STATIC DATA
+import { fakeUsers } from "../static-data/fakeUsers.data";
 
-// TS INTERFACES
-interface Props {}
-
-// STATIC FAKE DATA
-const suggestions = [...Array(5)].map((_, idx) => ({
-  ...faker.helpers.contextualCard(),
-  id: idx,
-}));
-
-const Suggestions: React.FC<Props> = (props) => {
-  const {} = props;
-
+const Suggestions: React.FC = () => {
   return (
     <div className="mt-4 ml-10">
       <div className="flex justify-between text-sm mb-5">
@@ -22,7 +11,7 @@ const Suggestions: React.FC<Props> = (props) => {
         <button className="text-gray-600 font-semibold">See All</button>
       </div>
 
-      {suggestions.map((profile) => (
+      {fakeUsers.map((profile) => (
         <div
           key={profile.id}
           className="flex items-center justify-between mt-3"
