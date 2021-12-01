@@ -164,7 +164,7 @@ const Modal: React.FC = () => {
                       <input
                         id="file-upload-input"
                         type="file"
-                        hidden
+                        // hidden
                         ref={filePickerRef}
                         onChange={addImageToPost}
                       />
