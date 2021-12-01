@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useRef, useState, useEffect } from "react";
 
 // RECOIL
 import { useRecoilState } from "recoil";
@@ -26,6 +26,10 @@ import { ref, getDownloadURL, uploadString } from "@firebase/storage";
 
 const Modal: React.FC = () => {
   const [open, setOpen] = useRecoilState(modalState);
+
+  // useEffect(() => {
+  //   setOpen(true);
+  // }, []);
 
   const filePickerRef = useRef<HTMLInputElement>(null);
   const captionRef = useRef<HTMLInputElement>(null);
@@ -132,15 +136,20 @@ const Modal: React.FC = () => {
                     className="w-full object-contain cursor-pointer"
                   />
                 ) : (
-                  <div
+                  <button
+                    type="button"
                     className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer"
-                    onClick={() => filePickerRef.current?.click()}
+                    onClick={() => {
+                      console.log({ filePickerRefCurr: filePickerRef.current });
+                      filePickerRef.current?.click();
+                      // document.getElementById("file-upload-input")?.click();
+                    }}
                   >
                     <CameraIcon
                       className="h-6 w-6 text-red-600"
                       aria-hidden="true"
                     />
-                  </div>
+                  </button>
                 )}
                 <div>
                   <div className="mt-3 text-center sm:mt-5">
@@ -153,6 +162,7 @@ const Modal: React.FC = () => {
 
                     <div>
                       <input
+                        id="file-upload-input"
                         type="file"
                         hidden
                         ref={filePickerRef}

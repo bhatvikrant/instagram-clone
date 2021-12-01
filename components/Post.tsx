@@ -169,9 +169,9 @@ const Post: React.FC<Props> = (props) => {
       {/* ============== Feed Caption ============== */}
       <p className="p-5 truncate">
         {likes.length > 0 && (
-          <p className="font-bold mb-1">
+          <span className="font-bold mb-1 block">
             {likes.length === 1 ? "1 like" : `${likes.length} likes`}
-          </p>
+          </span>
         )}
         <span className="font-bold mr-1">{username}</span>
         {caption}
