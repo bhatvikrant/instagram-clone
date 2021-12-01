@@ -44,9 +44,9 @@ const Modal: React.FC = () => {
 
   const uploadPost = async () => {
     if (loading) return;
-    if (!session) return;
-    if (!selectedFile) return;
-    if (!captionRef.current?.value) return;
+    if (!session) return alert("You must be logged in to upload a post");
+    if (!selectedFile) return alert("No file selected");
+    if (!captionRef.current?.value) return alert("No caption");
 
     setLoading(true);
 
