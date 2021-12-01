@@ -118,6 +118,8 @@ const Modal: React.FC = () => {
             &#8203;
           </span>
 
+          <input type="file" />
+
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -165,7 +167,7 @@ const Modal: React.FC = () => {
                       <input
                         id="file-upload-input"
                         type="file"
-                        // hidden
+                        hidden
                         ref={filePickerRef}
                         onChange={addImageToPost}
                       />
